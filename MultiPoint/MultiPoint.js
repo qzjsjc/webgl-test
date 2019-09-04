@@ -6,6 +6,8 @@ var VSHADER_SOURCE =
     'void main(){\n'+
     'gl_Position.x = a_Position.x * u_CosB - a_Position.y * u_SinB;\n'+
     'gl_Position.y = a_Position.x * u_SinB + a_Position.y * u_CosB;\n'+
+    'gl_Position.z = a_Position.z;\n'+
+    'gl_Position.w = 1.0;\n'+
     // '   gl_Position = a_Position + u_Translation;\n' +
     // '   gl_PointSize = a_PointSize;\n' +
     '}\n';
@@ -19,7 +21,7 @@ var FSHADER_SOURCE =
 
 var Tx = 0.5, Ty = 0.5, Tz = 0.0;
 
-var ANGLE = 90.0;
+var ANGLE = 180.0;
 
 function main()
 {
@@ -80,7 +82,8 @@ function main()
 
     // gl.drawArrays(gl.POINTS, 0, n);
     // gl.drawArrays(gl.LINE_LOOP, 0, n);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
+    gl.drawArrays(gl.TRIANGLES, 0, n);
+    // gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
     // gl.drawArrays(gl.TRIANGLE_FAN, 0, n);
 }
 
