@@ -12,7 +12,7 @@ var FSHADER_SOURCE =
     'uniform sampler2D u_Sampler;\n'+
     'varying vec2 v_TexCoord;\n'+
     'void main() {\n' +
-    '   gl_FragColor = texture2D(u_Sampler, v_TexCoord)\n' +
+    '   gl_FragColor = texture2D(u_Sampler, v_TexCoord);\n' +
     '}\n';
 
 var Tx = 0.5, Ty = 0.5, Tz = 0.0;
@@ -21,6 +21,7 @@ var ANGLE = 180.0;
 
 function main()
 {
+    console.log(1);
     var canvas = document.getElementById('webgl');
     if(!canvas){
         console.log('Failed to retrieve the <canvas> element');
@@ -44,8 +45,8 @@ function main()
         return;
     }
 
-    gl.clearColor(0.5, 0.5, 0.5, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    //gl.clear(gl.COLOR_BUFFER_BIT);
 
     if(!initTextures(gl, n)){
         console.log('failed');
@@ -89,6 +90,8 @@ function initVertexBuffers(gl) {
     gl.vertexAttribPointer(a_TexCoord, 2, gl.FLOAT, false, FSIZE * 4, FSIZE * 2);
     gl.enableVertexAttribArray(a_TexCoord);
 
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
     return n;
 }
 
@@ -115,7 +118,9 @@ function loadTexture(gl, n, texture, u_Sampler, image){
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
 
-    gl.uniformli(u_Sampler, 0);
+    gl.uniform1i(u_Sampler, 0);
+
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
 }
